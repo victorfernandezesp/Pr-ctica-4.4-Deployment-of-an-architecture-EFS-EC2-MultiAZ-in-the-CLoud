@@ -150,7 +150,6 @@
 
 ![img](img/ENFS4.jpg)
 
-<p>Si se realiza correctamente estos pasos no deberia desmontarse, en cuyo caso si al actualizar durante los proximos pasos no cargase la pagina web solo tendriamos que realizar estos pasos:</p>
 
     cd efs-mount
 
@@ -158,6 +157,13 @@
 
     systemctl restart apache2
 
+<p>Para que no se desmonte tendremos que en cada maquina debremos editar el archivo:</p>
+    sudo nano /etc/fstab
+
+<p> Dentro de ese archivo pegaremos el DNS del EFS y acontinuacion este comando:</p> 
+    /var/www/html/efs-mount nfs defaults 0 0
+
+![img](img/mount.jpeg)
 
 <p> Se editara el archivo de configuracion de Apache2 para que muestre nuestra pagina al introducir nuestra IP con el siguiente comando: </p>
 
@@ -215,8 +221,8 @@
 
 
     <Proxy balancer://mycluster> 
-    # Server 1 BalancerMember http://ip-http-server-1/ 
-    # Server 2 BalancerMember http://ip-http-server-2/ </Proxy> ProxyPass / balancer://mycluster/
+    # Server 1 BalancerMember http://ip-http-server-1/ *IP PRIVADA*
+    # Server 2 BalancerMember http://ip-http-server-2/ *IP PRIVADA* </Proxy> ProxyPass / balancer://mycluster/
 
     ProxyPassReverse "/images/" "balancer://myset/"
 
@@ -230,6 +236,9 @@
 
 Una vez hecho esto se reiniciara el servicio apache (*systemctl restart apache2*) y accederemos al balanceador:
 
-<li> http://54.196.77.90/balancer-manager </li>
+<li> http://34.196.139.200/balancer-manager </li>
 
 ![img](img/CB4.jpg)
+
+Cambiamos la regla de entrada del grupo de seguridad WEB, cambiaremos el origen 0.0.0.0 por la IP PRIVADA del Balanceador.
+
