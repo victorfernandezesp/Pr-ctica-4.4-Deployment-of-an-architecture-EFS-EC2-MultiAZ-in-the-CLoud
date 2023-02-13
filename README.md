@@ -7,7 +7,7 @@
 
 <h2> Introducción a la práctica </h2>
 
-<p> En esta practica se realizara un escenario que cuenta con 2 servidores WEB que alojaran un servicio similar a la pagina de Netflix, el cual nos mostrara una serie de peliculas y series para ver, junto a una informacion acerca de ello.</p>
+<p> En esta practica se realizara un escenario que cuenta con 2 servidores WEB que alojaran un servicio similar a la pagina de Netflix, el cual nos mostrara una serie de peliculas y series para ver, junto a una informacion acerca de ello, ademas como ampliacion, en esta pagina tendremos un link para poder "Donar" para el terremoto que ha destrozado Turquia y Siria, teniendo una pagina con una donacion, un nombre y el tipo de moneda, si se completa el formulario, nos dara el total recaudado y nos dira que todo ha salido correctamente, la base de datos recogera esta tupla de informacion y la almacenará.</p>
 <p> Utilizaremos 2 EC2 de Amazon como servidores WEB del servicio. </p>
 <p> Usaremos un sistema EFS para almacenar los archivos de nuestra pagina web, el codigo fuente, imagenes que se mostraran etc. <p>
 <p> Todo ello bajo unos Grupos de Seguridad que: 
