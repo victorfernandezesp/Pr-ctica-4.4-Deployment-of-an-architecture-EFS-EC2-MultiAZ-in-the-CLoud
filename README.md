@@ -14,7 +14,7 @@
 <p> En EC2 aceptaran peticiones de los usuarios que deseen acceder al sitio WEB y del sistema de almacenamiento EFS. </p>
 <p> En EFS aceptaran peticiones de los servidores WEB. </p>
 <p> Se creara también un Cluster Balanceador en EC2 para que este distribuya las peticiones entre los 2 servidores WEB.</p>
-
+<p> Se creara también una RDS para poder almacenar los datos de la extension de trabajo de Turquia y Siria, instalando Php, creando las paginas para poder hacer la donacion cuyos datos iran a esta base de datos.</p>
 <p>Se ha decidido trabajar con el sistema de EFS ya que es un sistema muy util, pagamos por el almacenamiento que consumimos, fiable y de rapida accesibilidad. </p>
 
 <p> Con todo ello conseguiremos una una arquitectura en la nube.
@@ -28,6 +28,9 @@
 * Alta Seguridad 
 
 * Con un cluster que distribuye las peticiones
+
+![img](img/descarga.png)
+
 <hr>
 <br><br><br>
 
@@ -242,3 +245,49 @@ Una vez hecho esto se reiniciara el servicio apache (*systemctl restart apache2*
 
 Cambiamos la regla de entrada del grupo de seguridad WEB, cambiaremos el origen 0.0.0.0 por la IP PRIVADA del Balanceador.
 
+<hr>
+
+
+
+
+
+<br><br><br>
+<h2> 6º Extension Scripts Turquia, Siria y la Base de Datos: </h2>
+<hr>
+
+<h2> 6.1 Configuracion PHP</h2>
+<p>Se conectará a ambas EC2 para instalar php v8</p>
+
+    $ sudo yum install -y amazon-linux-extras
+    $ sudo yum update
+    $ sudo amazon-linux-extras | grep php
+
+<p> Seleccionaremos en consola la version 8.0 </p>
+
+    $ sudo yum clean metadata
+
+<h2> 6.2 Creación BBDD</h2>
+
+<p> Se creara una RDS con las siguientes caracteristicas: </p>
+
+<li>  Plantilla: Produccion</li>
+<li>  Configuracion: Instancia BBDD multiAZ</li>
+<li>  Configuracion instancia: clases con rafagas</li>
+<li>  Almacenamiento: asiganado *Minimo*, IOPS *minimo*, umbral almacenamiento maximo *minimo*</li>
+<li>  Escogemos el Grupo de Seguridad mysql para que acepte peticiones de 0.0.0.0 /0 </li>
+
+<p> Una vez accedamos a la BBDD se creara la tabla donde guardaremos los datos de los donativos </p>
+
+<h2> 6.3 Creación archivos WEB</h2>
+<p> Creamos los archivos que se mostraran en la web ademas de las conexiones a la BBDD </p>
+
+<h2> 6.4 Securizacion</h2>
+<p> Eliminaremos y dejaremos las reglas de entrada asi para securizar nuestros servers. </p>
+
+<p>SGWEB</p>
+
+![img](img/FN1.jpg)
+
+<p>SGMYSQL</p>
+
+![img](img/FN2.jpg)
