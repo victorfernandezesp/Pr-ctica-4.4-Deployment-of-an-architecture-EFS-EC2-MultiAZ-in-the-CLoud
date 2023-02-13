@@ -281,6 +281,8 @@ Cambiamos la regla de entrada del grupo de seguridad WEB, cambiaremos el origen 
 <h2> 6.3 Creación archivos WEB</h2>
 <p> Creamos los archivos que se mostraran en la web ademas de las conexiones a la BBDD </p>
 
+[CODIGOS](codigos.txt)
+
 <h2> 6.4 Securizacion</h2>
 <p> Eliminaremos y dejaremos las reglas de entrada asi para securizar nuestros servers. </p>
 
